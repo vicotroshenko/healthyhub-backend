@@ -1,0 +1,1394 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Healthy Hub",
+    "description": "",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.11"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+	"consumes": ["application/json", "multipart/form-data"],
+	"produces": ["application/json"],
+  "servers": [
+    {
+      "url": "https://http://localhost:8080/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Operations about user"
+    },
+    {
+      "name": "user",
+      "description": "Everything about your meals",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "settings",
+      "description": "Operations with settings"
+    },
+    {
+      "name": "recommended food",
+      "description": "get all helthy food",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Register new user into the system",
+        "description": "",
+        "parameters": [],
+        "requestBody": {
+          "description": "Registration's object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }    
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Email already in use"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Login into the system",
+        "description": "",
+        "parameters": [],
+        "requestBody": {
+          "description": "Login's object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }    
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Email or password invalid"
+          }
+        }
+      }
+    },
+    "/auth/current": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Get current user information",
+        "description": "Returns information about current user",
+        "parameters": [],
+        "security": [{ "Bearer": []}],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthrize"
+          }
+        }
+      }
+    },
+      "/auth/logout": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "security": [{ "Bearer": []}],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create a new working day",
+        "description": "Creating a new healthy day with data",
+        "security": [{ "Bearer": []}],
+        "parameters": [],
+        "requestBody": {
+          "description": "Healthy day object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateHealthyDayRequest"
+              }
+            }
+          }    
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateHealthyDayResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found current day"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get a last working day",
+        "description": "Get last healthy day with data",
+        "security": [{ "Bearer": []}],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetHealthyDayResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found current day"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get healthy day by id",
+        "description": "Get healthy day by id",
+        "operationId": "id",
+        "security": [{ "Bearer": []}],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of day",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetHealthyDayByIdResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found current day"
+          }
+        }
+      }
+    },
+    "/user/water-intake": {
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Add drunk water",
+        "description": "",
+        "parameters": [],
+        "security": [{ "Bearer": []}],
+        "requestBody": {
+          "description": "drunk water object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WaterRequest"
+              }
+            }
+          }    
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WaterResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "user/food-intake/{meal}": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Add meal to current day",
+        "description": "Add specific meal to current day",
+        "parameters": [{
+          "name": "meal",
+          "in": "path",
+          "description": "Name of Meal",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": ["breakfast", "lunch", "dinner", "snack"]
+          }
+        }],
+        "security": [{ "Bearer": []}],
+        "requestBody": {
+          "description": "meal object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddMealRequest"
+              }
+            }
+          }    
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddMealResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found current day"
+          },
+          "400": {
+            "description": "Files did not add"
+          }
+        }
+      }
+    },
+    "user/food-intake/{meal}/{id}": {
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update meal to current day",
+        "description": "Update specific meal of current day",
+        "parameters": [
+          {
+          "name": "meal",
+          "in": "path",
+          "description": "Name of Meal",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": ["breakfast", "lunch", "dinner", "snack"]
+          }
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Id of Meal",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+        "security": [{ "Bearer": []}],
+        "requestBody": {
+          "description": "meal object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMealRequest"
+              }
+            }
+          }    
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateMealResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found current day"
+          },
+          "400": {
+            "description": "Files did not update"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete meal to current day",
+        "description": "Delete specific meal of current day",
+        "parameters": [
+          {
+          "name": "meal",
+          "in": "path",
+          "description": "Name of Meal",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": ["breakfast", "lunch", "dinner", "snack"]
+          }
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Id of Meal",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+        "security": [{ "Bearer": []}],
+        "responses": {
+          "200": {
+            "description": "successful deleted"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "400": {
+            "description": "Files did not delete"
+          }
+        }
+      }
+    },
+    "/user/statistic": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get statistics",
+        "description": "Get statistics for the entire period",
+        "security": [{ "Bearer": []}],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetStatisticsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found current day"
+          }
+        }
+      }
+    },
+    "/settings": {
+      "patch": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Update all settings",
+        "description": "Update user settings",
+        "parameters": [],
+        "security": [{ "Bearer": []}],
+        "requestBody": {
+          "description": "settings object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SettingsRequest"
+              }
+            }
+          }    
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SettingsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/settings/weight": {
+      "patch": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Update weight",
+        "description": "Update user's weight",
+        "parameters": [],
+        "security": [{ "Bearer": []}],
+        "requestBody": {
+          "description": "settings object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeightRequest"
+              }
+            }
+          }    
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeightResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/settings/goal": {
+      "patch": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Update goal",
+        "description": "Update user's goal",
+        "parameters": [],
+        "security": [{ "Bearer": []}],
+        "requestBody": {
+          "description": "goal object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoalRequest"
+              }
+            }
+          }    
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GoalResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/settings/avatars": {
+      "patch": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Update avatar",
+        "description": "Update user's avatar",
+        "parameters": [{
+          "in": "formData",
+          "name": "avatar",
+          "type": "file",
+          "description": "The file to upload"
+        }],
+        "security": [{ "Bearer": []}],
+        "requestBody": {
+          "description": "avatars file",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/AvatarRequest"
+              }
+            }
+          }    
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvatarResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/recommended-food": {
+      "get": {
+        "tags": [
+          "recommended food"
+        ],
+        "summary": "Get recommended food",
+        "description": "Returns list of recommended food",
+        "parameters": [],
+        "security": [{ "Bearer": []}],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetRecommendedFoodResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+     "RegistrationRequest": {
+      "type": "object",
+      "required": ["name", "email", "password", "gender", "age", "height", "goal", "activity"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "user1234"
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email",
+          "format": "email"
+        },
+        "password": {
+          "type": "string",
+          "description": "User's password",
+          "example": "qwerty123"
+        },
+        "gender": {
+          "type": "string",
+          "description": "User's gender",
+          "enum": ["male", "female"] 
+        },
+        "age": {
+          "type": "number",
+          "description": "User's age",
+          "example": "31"
+        },
+        "height": {
+          "type": "number",
+          "description": "User's height",
+          "example": "188"
+        },
+        "goal": {
+          "type": "string",
+          "description": "User's goal",
+          "enum": ["Lose fat", "Maintain", "Gain Muscle"] 
+        },
+        "activity": {
+          "type": "number",
+          "description": "User's coefficient of activity",
+          "example": "1.725"
+        }
+      }
+     },
+     "RegistrationResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "user1234"
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email",
+          "format": "email"
+        }
+      }
+     },
+     "LoginRequest": {
+      "type": "object",
+      "required": ["email", "password"],
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "User's email",
+          "format": "email"
+        },
+        "password": {
+          "type": "string",
+          "description": "User's password",
+          "example": "qwerty123"
+        }
+      }
+     },
+     "LoginResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+     },
+     "CurrentUserResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "user1234"
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email",
+          "format": "email"
+        }
+      }
+     },
+     "CreateHealthyDayRequest": {
+      "type": "object",
+      "required": false,
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Current day"
+        },
+        "water": {
+          "type": "number",
+          "description": "drunk water",
+          "example": 250
+        },
+        "weigth": {
+          "type": "number",
+          "description": "current weigth",
+          "example": 88
+        },
+        "breakfast": {
+          "type": "array",
+          "items" : {
+            "$ref" : "#/definitions/meals"
+          },
+          "description": "User's breakfast"
+        },
+        "lunch": {
+          "type": "array",
+          "description": "User's lunch",
+          "items" : {
+            "$ref" : "#/definitions/meals"
+          }
+        },
+        "dinner": {
+          "type": "array",
+          "description": "User's dinner",
+          "items" : {
+            "$ref" : "#/definitions/meals"
+          }
+        },
+        "snack": {
+          "type": "array",
+          "description": "User's snack",
+          "items" : {
+            "$ref" : "#/definitions/meals"
+          }
+        }
+      }
+     },
+     "CreateHealthyDayResponse": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Current day"
+        
+        },
+        "water": {
+          "type": "number",
+          "description": "drunk water",
+          "example": 250
+        },
+        "weight": {
+          "type": "number",
+          "description": "current weigth",
+          "example": 88
+        },
+        "breakfast": {
+          "type": "array",
+          "items" : {
+            "$ref" : "#/definitions/meals"
+          },
+          "description": "User's breakfast"
+        },
+        "lunch": {
+          "type": "array",
+          "description": "User's lunch",
+          "items" : {
+            "$ref" : "#/definitions/meals"
+          }
+        },
+        "dinner": {
+          "type": "array",
+          "description": "User's dinner",
+          "items" : {
+            "$ref" : "#/definitions/meals"
+          }
+        },
+        "snack": {
+          "type": "array",
+          "description": "User's snack",
+          "items" : {
+            "$ref" : "#/definitions/meals"
+          }
+        }
+      }
+     },
+     "GetHealthyDayResponse": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Current day"
+        
+        },
+        "id": {
+          "type": "string",
+          "description": "id of added object"
+        },
+        "water": {
+          "type": "number",
+          "description": "drunk water",
+          "example": 250
+        },
+        "weigth": {
+          "type": "number",
+          "description": "current weigth",
+          "example": 88
+        },
+        "breakfast": {
+          "type": "array",
+          "items" : {
+            "$ref" : "#/definitions/meals"
+          },
+          "description": "User's breakfast"
+        },
+        "lunch": {
+          "type": "array",
+          "description": "User's lunch",
+          "items" : {
+            "$ref" : "#/definitions/meals"
+          }
+        },
+        "dinner": {
+          "type": "array",
+          "description": "User's dinner",
+          "items" : {
+            "$ref" : "#/definitions/meals"
+          }
+        },
+        "snack": {
+          "type": "array",
+          "description": "User's snack",
+          "items" : {
+            "$ref" : "#/definitions/meals"
+          }
+        }
+      }
+     },
+     "GetHealthyDayByIdResponse": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Current day"
+        
+        },
+        "id": {
+          "type": "string",
+          "description": "id of added object"
+        },
+        "water": {
+          "type": "number",
+          "description": "drunk water",
+          "example": 250
+        },
+        "weight": {
+          "type": "number",
+          "description": "current weigth",
+          "example": 88
+        },
+        "breakfast": {
+          "type": "array",
+          "items" : {
+            "$ref" : "#/definitions/meals"
+          },
+          "description": "User's breakfast"
+        },
+        "lunch": {
+          "type": "array",
+          "description": "User's lunch",
+          "items" : {
+            "$ref" : "#/definitions/meals"
+          }
+        },
+        "dinner": {
+          "type": "array",
+          "description": "User's dinner",
+          "items" : {
+            "$ref" : "#/definitions/meals"
+          }
+        },
+        "snack": {
+          "type": "array",
+          "description": "User's snack",
+          "items" : {
+            "$ref" : "#/definitions/meals"
+          }
+        }
+      }
+     },
+     "WaterRequest": {
+      "type": "object",
+      "required": ["water"],
+      "properties": {
+        "water": {
+          "type": "number",
+          "required": true,
+          "description": "drunk water",
+          "example": 250
+        }
+      }
+     },
+     "WaterResponse": {
+      "type": "object",
+      "properties": {
+        "water": {
+          "type": "number",
+          "description": "drunk water",
+          "example": 250
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Current day"
+        }
+      }
+    },
+    "AddMealRequest": {
+      "type": "object",
+      "required": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Name of the dish"
+        },
+        "carbohydrates": {
+          "type": "number",
+          "description": "Carbohydrates of the dish"
+        },
+        "protein": {
+          "type": "number",
+          "description": "Protein of the dish"
+        },
+        "fat": {
+          "type": "number",
+          "description": "Fat of the dish"
+        },
+        "calories": {
+          "type": "number",
+          "description": "Calories of the dish"
+        }
+      }
+     },
+     "AddMealResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "id of added object"
+        },
+        "title": {
+          "type": "string",
+          "description": "Name of the dish"
+        },
+        "carbohydrates": {
+          "type": "number",
+          "description": "Carbohydrates of the dish"
+        },
+        "protein": {
+          "type": "number",
+          "description": "Protein of the dish"
+        },
+        "fat": {
+          "type": "number",
+          "description": "Fat of the dish"
+        },
+        "calories": {
+          "type": "number",
+          "description": "Calories of the dish"
+        }
+      }
+    },
+    "UpdateMealRequest": {
+      "type": "object",
+      "required": false,
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Name of the dish"
+        },
+        "carbohydrates": {
+          "type": "number",
+          "description": "Carbohydrates of the dish"
+        },
+        "protein": {
+          "type": "number",
+          "description": "Protein of the dish"
+        },
+        "fat": {
+          "type": "number",
+          "description": "Fat of the dish"
+        },
+        "calories": {
+          "type": "number",
+          "description": "Calories of the dish"
+        }
+      }
+     },
+     "UpdateMealResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "id of added object"
+        },
+        "title": {
+          "type": "string",
+          "description": "Name of the dish"
+        },
+        "carbohydrates": {
+          "type": "number",
+          "description": "Carbohydrates of the dish"
+        },
+        "protein": {
+          "type": "number",
+          "description": "Protein of the dish"
+        },
+        "fat": {
+          "type": "number",
+          "description": "Fat of the dish"
+        },
+        "calories": {
+          "type": "number",
+          "description": "Calories of the dish"
+        }
+      }
+    },
+    "GetStatisticsResponse": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Current day"
+        
+        },
+        "water": {
+          "type": "number",
+          "description": "drunk water",
+          "example": 250
+        },
+        "weigth": {
+          "type": "number",
+          "description": "current weigth",
+          "example": 88
+        },
+        "breakfast": {
+          "type": "array",
+          "items" : {
+            "$ref" : "#/definitions/statistic"
+          },
+          "description": "User's breakfast statistics"
+        },
+        "lunch": {
+          "type": "array",
+          "description": "User's lunch statistics",
+          "items" : {
+            "$ref" : "#/definitions/statistic"
+          }
+        },
+        "dinner": {
+          "type": "array",
+          "description": "User's dinner statistics",
+          "items" : {
+            "$ref" : "#/definitions/statistic"
+          }
+        },
+        "snack": {
+          "type": "array",
+          "description": "User's snack statistics",
+          "items" : {
+            "$ref" : "#/definitions/statistic"
+          }
+        }
+      } 
+    },
+    "SettingsRequest": {
+      "type": "object",
+      "required": ["name", "age", "height", "weight", "gender", "activity"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "User's name",
+          "example": "Alan"
+        },
+        "age": {
+          "type": "number",
+          "description": "User's age",
+          "example": 28
+        },
+        "height": {
+          "type": "number",
+          "description": "User's height",
+          "example": 178
+        },
+        "weight": {
+          "type": "number",
+          "description": "User's weight",
+          "example": 65
+        },
+        "gender": {
+          "type": "string",
+          "enum": ["male", "female"],
+          "description": "Users gender"
+        },
+        "activity": {
+          "type": "number",
+          "description": "User's coefficient of activity",
+          "example": 1.725
+        }
+      }
+     },
+     "SettingsResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "User's name",
+          "example": "Alan"
+        },
+        "age": {
+          "type": "number",
+          "description": "User's age",
+          "example": 28
+        },
+        "height": {
+          "type": "number",
+          "description": "User's height",
+          "example": 178
+        },
+        "weight": {
+          "type": "number",
+          "description": "User's weight",
+          "example": 65
+        },
+        "gender": {
+          "type": "string",
+          "enum": ["male", "female"],
+          "description": "Users gender"
+        },
+        "activity": {
+          "type": "number",
+          "description": "User's coefficient of activity",
+          "example": 1.725
+        }
+      }
+    },
+    "WeightRequest": {
+      "type": "object",
+      "required": ["weight"],
+      "properties": {
+        "weight": {
+          "type": "number",
+          "required": true,
+          "description": "weight",
+          "example": 77
+        }
+      }
+     },
+     "WeightResponse": {
+      "type": "object",
+      "properties": {
+        "weight": {
+          "type": "number",
+          "description": "weight",
+          "example": 77
+        }
+      }
+    },
+    "GoalRequest": {
+      "type": "object",
+      "required": ["goal"],
+      "properties": {
+        "goal": {
+          "type": "string",
+          "description": "User's goal",
+          "enum": ["Lose fat", "Maintain", "Gain Muscle"] 
+        }
+      }
+     },
+     "GoalResponse": {
+      "type": "object",
+      "properties": {
+        "goal": {
+          "type": "string",
+          "description": "User's goal",
+          "enum": ["Lose fat", "Maintain", "Gain Muscle"] 
+        }
+      }
+    },
+    "AvatarRequest": {
+      "type": "file",
+      "required": true,
+      "properties": {
+        "avatarURL": {
+          "type": "file",
+          "description": "User's avatar"
+        }
+      }
+     },
+     "AvatarResponse": {
+      "type": "object",
+      "properties": {
+        "avatarURL": {
+          "type": "string",
+          "description": "User's avatar link"
+        }
+      }
+    },
+    "GetRecommendedFoodResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "name of food",
+          "example": "apple"
+        
+        },
+        "amount": {
+          "type": "string",
+          "description": "amount",
+          "example": 250
+        },
+        "img": {
+          "type": "string",
+          "description": "image of food",
+          "example": "link"
+        },
+        "calories": {
+          "type": "number",
+          "description": "calories of food",
+          "example": 88
+        },
+        "nutrition": {
+          "type": "object",
+          "items" : {
+            "$ref" : "#/definitions/recommendedFood"
+          }
+        }
+      } 
+    }
+  },
+  "definitions": {
+    "meals": {
+        "type": "object",
+        "required": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Name of the dish"
+          },
+          "carbohydrates": {
+            "type": "number",
+            "description": "Carbohydrates of the dish"
+          },
+          "protein": {
+            "type": "number",
+            "description": "Protein of the dish"
+          },
+          "fat": {
+            "type": "number",
+            "description": "Fat of the dish"
+          },
+          "calories": {
+            "type": "number",
+            "description": "Calories of the dish"
+          }
+        }
+      },
+    "statistic": {
+        "type": "object",
+        "required": false,
+        "properties": {
+          "carbohydrates": {
+            "type": "number",
+            "description": "Carbohydrates of the dish"
+          },
+          "protein": {
+            "type": "number",
+            "description": "Protein of the dish"
+          },
+          "fat": {
+            "type": "number",
+            "description": "Fat of the dish"
+          },
+          "calories": {
+            "type": "number",
+            "description": "Calories of the dish"
+          }
+        }
+      },
+    "recommendedFood": {
+      "type": "object",
+      "properties":{
+        "carbohydrates": {
+          "type": "number",
+          "description": "Carbohydrates of the dish",
+          "example": 45
+        },
+        "protein": {
+          "type": "number",
+          "description": "Protein of the dish",
+          "example": 34
+        },
+        "fat": {
+          "type": "number",
+          "description": "Fat of the dish",
+          "example": 423
+        }
+      }
+    }
+    },
+    "securitySchemes": {
+      "petstore_auth": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
+            "scopes": {
+              "write:pets": "modify pets in your account",
+              "read:pets": "read your pets"
+            }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  }
+}
