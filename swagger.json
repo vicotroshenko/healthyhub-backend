@@ -701,49 +701,54 @@
      "RegistrationResponse": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string",
-          "example": "user1234"
-        },
-        "email": {
-          "type": "string",
-          "description": "User's email",
-          "format": "email"
-        },
-        "gender": {
-          "type": "string",
-          "description": "User's gender",
-          "example": "male"
-        },
-        "age": {
-          "type": "number",
-          "description": "User's age",
-          "example": "32"
-        },
-        "height": {
-          "type": "number",
-          "description": "User's height",
-          "example": "188"
-        },
-        "weight": {
-          "type": "number",
-          "description": "User's weight",
-          "example": "83"
-        },
-        "goal": {
-          "type": "string",
-          "description": "User's goal",
-          "example": "Maintain"
-        },
-        "activity": {
-          "type": "number",
-          "description": "User's type of activity",
-          "example": "1.25"
-        },
         "token": {
           "type": "string",
           "description": "token",
           "example": ""
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "user1234"
+            },
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "format": "email"
+            },
+            "gender": {
+              "type": "string",
+              "description": "User's gender",
+              "example": "male"
+            },
+            "age": {
+              "type": "number",
+              "description": "User's age",
+              "example": "32"
+            },
+            "height": {
+              "type": "number",
+              "description": "User's height",
+              "example": "188"
+            },
+            "weight": {
+              "type": "number",
+              "description": "User's weight",
+              "example": "83"
+            },
+            "goal": {
+              "type": "string",
+              "description": "User's goal",
+              "example": "Maintain"
+            },
+            "activity": {
+              "type": "number",
+              "description": "User's type of activity",
+              "example": "1.25"
+            }
+          }
         }
       }
      },
@@ -766,98 +771,108 @@
      "LoginResponse": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string",
-          "example": "user1234"
-        },
-        "email": {
-          "type": "string",
-          "description": "User's email",
-          "format": "email"
-        },
-        "gender": {
-          "type": "string",
-          "description": "User's gender",
-          "example": "male"
-        },
-        "age": {
-          "type": "number",
-          "description": "User's age",
-          "example": "32"
-        },
-        "height": {
-          "type": "number",
-          "description": "User's height",
-          "example": "188"
-        },
-        "weight": {
-          "type": "number",
-          "description": "User's weight",
-          "example": "83"
-        },
-        "goal": {
-          "type": "string",
-          "description": "User's goal",
-          "example": "Maintain"
-        },
-        "activity": {
-          "type": "number",
-          "description": "User's type of activity",
-          "example": "1.25"
-        },
         "token": {
           "type": "string",
           "description": "token",
           "example": ""
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "user1234"
+            },
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "format": "email"
+            },
+            "gender": {
+              "type": "string",
+              "description": "User's gender",
+              "example": "male"
+            },
+            "age": {
+              "type": "number",
+              "description": "User's age",
+              "example": "32"
+            },
+            "height": {
+              "type": "number",
+              "description": "User's height",
+              "example": "188"
+            },
+            "weight": {
+              "type": "number",
+              "description": "User's weight",
+              "example": "83"
+            },
+            "goal": {
+              "type": "string",
+              "description": "User's goal",
+              "example": "Maintain"
+            },
+            "activity": {
+              "type": "number",
+              "description": "User's type of activity",
+              "example": "1.25"
+            }
+          }
         }
       }
      },
      "CurrentUserResponse": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string",
-          "example": "user1234"
-        },
-        "email": {
-          "type": "string",
-          "description": "User's email",
-          "format": "email"
-        },
-        "gender": {
-          "type": "string",
-          "description": "User's gender",
-          "example": "male"
-        },
-        "age": {
-          "type": "number",
-          "description": "User's age",
-          "example": "32"
-        },
-        "height": {
-          "type": "number",
-          "description": "User's height",
-          "example": "188"
-        },
-        "weight": {
-          "type": "number",
-          "description": "User's weight",
-          "example": "83"
-        },
-        "goal": {
-          "type": "string",
-          "description": "User's goal",
-          "example": "Maintain"
-        },
-        "activity": {
-          "type": "number",
-          "description": "User's type of activity",
-          "example": "1.25"
-        },
         "token": {
           "type": "string",
           "description": "token",
           "example": ""
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "user1234"
+            },
+            "email": {
+              "type": "string",
+              "description": "User's email",
+              "format": "email"
+            },
+            "gender": {
+              "type": "string",
+              "description": "User's gender",
+              "example": "male"
+            },
+            "age": {
+              "type": "number",
+              "description": "User's age",
+              "example": "32"
+            },
+            "height": {
+              "type": "number",
+              "description": "User's height",
+              "example": "188"
+            },
+            "weight": {
+              "type": "number",
+              "description": "User's weight",
+              "example": "83"
+            },
+            "goal": {
+              "type": "string",
+              "description": "User's goal",
+              "example": "Maintain"
+            },
+            "activity": {
+              "type": "number",
+              "description": "User's type of activity",
+              "example": "1.25"
+            }
+          }
         }
       }
      },

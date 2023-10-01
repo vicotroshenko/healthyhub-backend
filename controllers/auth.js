@@ -23,16 +23,18 @@ const register = async (req, res) => {
   const data = await User.create({ ...req.body, password: hashPassword, avatarURL });
 
   res.status(201).json({
-    name: data.name,
-    email: data.email,
-    gender: data.gender,
-    age: data.age,
-    height: data.height,
-    weight: data.weight,
-    goal: data.goal,
-    activity: data.activity,
-    avatarURL: data.avatarURL,
     token: data.token,
+    data: {
+      name: data.name,
+      email: data.email,
+      gender: data.gender,
+      age: data.age,
+      height: data.height,
+      weight: data.weight,
+      goal: data.goal,
+      activity: data.activity,
+      avatarURL: data.avatarURL,
+    }
   });
 };
 
@@ -60,16 +62,18 @@ const login = async (req, res) => {
   });
 
   res.json({
-    name: data.name,
-    email: data.email,
-    gender: data.gender,
-    age: data.age,
-    height: data.height,
-    weight: data.weight,
-    goal: data.goal,
-    activity: data.activity,
-    avatarURL: data.avatarURL,
     token: data.token,
+    data: {
+      name: data.name,
+      email: data.email,
+      gender: data.gender,
+      age: data.age,
+      height: data.height,
+      weight: data.weight,
+      goal: data.goal,
+      activity: data.activity,
+      avatarURL: data.avatarURL,
+    }
   });
 };
 
@@ -77,16 +81,18 @@ const getCurrent = async (req, res) => {
   const data = req.user;
 
   res.status(200).json({
-    name: data.name,
-    email: data.email,
-    gender: data.gender,
-    age: data.age,
-    height: data.height,
-    weight: data.weight,
-    goal: data.goal,
-    activity: data.activity,
-    avatarURL: data.avatarURL,
     token: data.token,
+    data: {
+      name: data.name,
+      email: data.email,
+      gender: data.gender,
+      age: data.age,
+      height: data.height,
+      weight: data.weight,
+      goal: data.goal,
+      activity: data.activity,
+      avatarURL: data.avatarURL,
+    }
   });
 };
 
