@@ -12,7 +12,7 @@ router.post("/register", validateBody(schemas.registerSchema), jsonParser, ctrl.
 
 router.post("/login", validateBody(schemas.loginSchema), jsonParser, ctrl.login);
 
-router.get("/current", jsonParser, authenticate, ctrl.getCurrent);
+router.get("/current" , authenticate, ctrl.getCurrent);
 
 router.post("/logout", jsonParser, authenticate, ctrl.logout);
 

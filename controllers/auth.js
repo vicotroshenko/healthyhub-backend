@@ -20,11 +20,19 @@ const register = async (req, res) => {
 
 	const avatarURL = gravatar.url(email);
 
-  const newUser = await User.create({ ...req.body, password: hashPassword, avatarURL });
+  const data = await User.create({ ...req.body, password: hashPassword, avatarURL });
 
   res.status(201).json({
-    email: newUser.email,
-    name: newUser.name,
+    name: data.name,
+    email: data.email,
+    gender: data.gender,
+    age: data.age,
+    height: data.height,
+    weight: data.weight,
+    goal: data.goal,
+    activity: data.activity,
+    avatarURL: data.avatarURL,
+    token: data.token,
   });
 };
 
@@ -47,19 +55,38 @@ const login = async (req, res) => {
   };
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
-  await User.findByIdAndUpdate(user._id, { token });
+  const data = await User.findByIdAndUpdate(user._id, { token }, {
+    new: true,
+  });
 
   res.json({
-    token,
+    name: data.name,
+    email: data.email,
+    gender: data.gender,
+    age: data.age,
+    height: data.height,
+    weight: data.weight,
+    goal: data.goal,
+    activity: data.activity,
+    avatarURL: data.avatarURL,
+    token: data.token,
   });
 };
 
 const getCurrent = async (req, res) => {
-  const { email, name } = req.user;
+  const data = req.user;
 
   res.status(200).json({
-    email,
-    name,
+    name: data.name,
+    email: data.email,
+    gender: data.gender,
+    age: data.age,
+    height: data.height,
+    weight: data.weight,
+    goal: data.goal,
+    activity: data.activity,
+    avatarURL: data.avatarURL,
+    token: data.token,
   });
 };
 
