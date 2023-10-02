@@ -64,6 +64,7 @@ const registerSchema = Joi.object({
 	gender: Joi.string().required(),
 	age: Joi.number().required(),
 	height: Joi.number().required(),
+	weight: Joi.number(),
 	goal: Joi.string().required(),
 	activity: Joi.number().required(),
 });
