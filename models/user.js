@@ -16,7 +16,7 @@ const userSchema = new Schema({
 	},
 	password: {
 		type: String,
-		required: [true, "Set pawword for userr"]
+		required: [true, "Set pawword for user"]
 	},
 	gender: {
 		type: String,
