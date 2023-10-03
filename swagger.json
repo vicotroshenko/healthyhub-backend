@@ -297,6 +297,42 @@
         }
       }
     },
+    "/user/weight": {
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "change weight in meal day profile",
+        "description": "",
+        "parameters": [],
+        "security": [{ "Bearer": []}],
+        "requestBody": {
+          "description": "meal day profile",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WeightMealRequest"
+              }
+            }
+          }    
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeightMealResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
     "user/food-intake/{meal}": {
       "post": {
         "tags": [
@@ -511,8 +547,8 @@
         "tags": [
           "settings"
         ],
-        "summary": "Update weight",
-        "description": "Update user's weight",
+        "summary": "Update weight in user",
+        "description": "change weight in user profile",
         "parameters": [],
         "security": [{ "Bearer": []}],
         "requestBody": {
@@ -878,13 +914,8 @@
      },
      "CreateHealthyDayRequest": {
       "type": "object",
-      "required": false,
+      "required": ["weigth"],
       "properties": {
-        "date": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Current day"
-        },
         "water": {
           "type": "number",
           "description": "drunk water",
@@ -1099,6 +1130,38 @@
           "type": "number",
           "description": "drunk water",
           "example": 250
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Current day"
+        }
+      }
+    },
+    "WeightMealRequest": {
+      "type": "object",
+      "required": ["weight"],
+      "properties": {
+        "weight": {
+          "type": "number",
+          "required": true,
+          "description": "current weight",
+          "example": 67
+        }
+      }
+     },
+     "WeightMealResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "id of current day",
+          "example": "651be8164dae96a44dd303f2"
+        },
+        "weight": {
+          "type": "number",
+          "description": "current weight",
+          "example": 67
         },
         "date": {
           "type": "string",

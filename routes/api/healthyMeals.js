@@ -17,6 +17,8 @@ router.post('/', authenticate, jsonParser, validateBody(schemas.addDaySchema), c
 
 router.put('/water-intake', authenticate, jsonParser, validateBody(schemas.addWaterSchema), ctrl.addDrunkWater);
 
+router.put('/weight', authenticate, jsonParser, validateBody(schemas.addWeightSchema), ctrl.updateWeightToDay);
+
 router.get('/:id', authenticate, isValidId, ctrl.listFoodbyId);
 
 router.post('/food-intake/:meal', jsonParser, authenticate, validateBody(schemas.addMealSchema), ctrl.addMealToDay);

@@ -20,7 +20,7 @@ const healthySchema = new Schema({
     type: Number,
     default: 0,
   },
-  weigth: {
+  weight: {
     type: Number,
     default: 0,
   },
@@ -46,9 +46,8 @@ const addMealSchema = Joi.object({
 });
 
 const addDaySchema = Joi.object({
-  date: Joi.string(),
   water: Joi.number(),
-  weigth: Joi.number(),
+  weight: Joi.number().required(),
   breakfast: Joi.array(),
   lunch: Joi.array(),
   dinner: Joi.array(),
@@ -59,10 +58,15 @@ const addWaterSchema = Joi.object({
   water: Joi.number().required(),
 });
 
+const addWeightSchema = Joi.object({
+  weight: Joi.number().required(),
+});
+
 const schemas = {
   addMealSchema,
   addDaySchema,
   addWaterSchema,
+  addWeightSchema,
 };
 
 const Healthy = model("healthymeal", healthySchema);

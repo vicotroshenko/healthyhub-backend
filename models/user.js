@@ -16,7 +16,7 @@ const userSchema = new Schema({
 	},
 	password: {
 		type: String,
-		required: [true, "Set pawword for userr"]
+		required: [true, "Set pawword for user"]
 	},
 	gender: {
 		type: String,
@@ -74,7 +74,7 @@ const loginSchema = Joi.object({
 	password: Joi.string().min(6).required(),
 });
 
-const weigthSchema = Joi.object({
+const weightSchema = Joi.object({
 	weight: Joi.number().required(),
 });
 
@@ -94,7 +94,7 @@ const goalSchema = Joi.object({
 const schemas = {
 	registerSchema,
 	loginSchema,
-	weigthSchema,
+	weightSchema,
 	settingsSchema,
 	goalSchema
 }

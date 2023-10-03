@@ -11,7 +11,7 @@ const jsonParser = express.json();
 
 router.patch("/", jsonParser, authenticate, validateBody(schemas.settingsSchema), ctrl.updateSettings);
 
-router.patch("/weight", jsonParser, authenticate, validateBody(schemas.weigthSchema), ctrl.updateWeigth);
+router.patch("/weight", jsonParser, authenticate, validateBody(schemas.weightSchema), ctrl.updateWeigth);
 
 router.patch("/goal", jsonParser, authenticate, validateBody(schemas.goalSchema), ctrl.updateGoal);
 

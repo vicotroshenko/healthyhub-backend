@@ -28,12 +28,13 @@ const addHealthyDay = async (req, res) => {
       date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
     return gottenDate === currentDate;
   });
+  
 
   if (checkRepeatDate) {
-    throw HttpError(404, "Not found current day");
+    throw HttpError(404, "The has already create");
   }
 
-  const result = await Healthy.create({ owner });
+  const result = await Healthy.create({ ...req.body, owner });
   res.status(201).json(result);
 };
 
@@ -143,6 +144,37 @@ const updateMealToDay = async (req, res) => {
   }
 
   res.status(200).json(result);
+};
+
+const updateWeightToDay = async (req, res) => {
+  const { _id: owner } = req.user;
+  const { weight } = req.body;
+
+  const mealDay = await Healthy.find(
+    { owner },
+    "-createdAt -updatedAt"
+  ).populate("owner");
+
+  const checkRepeatDate = mealDay.find(({ date }) => {
+    const gottenDate =
+      date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
+    return gottenDate === currentDate;
+  });
+  
+
+  if (!checkRepeatDate) {
+    throw HttpError(404, "Not found day");
+  }
+  
+  const result = await Healthy.findByIdAndUpdate(checkRepeatDate._id, {weight}, {
+    new: true,
+  }).exec();
+
+  if (!result) {
+    throw HttpError(400, "filed did not update");
+  }
+
+  res.status(200).json({id: result._id, weight: result.weight, date: result.date});
 };
 
 const removeMeal = async (req, res) => {
@@ -266,4 +298,5 @@ module.exports = {
   updateMealToDay: ctrlWrapper(updateMealToDay),
   removeMeal: ctrlWrapper(removeMeal),
 	listStatistics: ctrlWrapper(listStatistics),
+	updateWeightToDay: ctrlWrapper(updateWeightToDay),
 };
