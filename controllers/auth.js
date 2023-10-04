@@ -107,11 +107,11 @@ const logout = async (req, res) => {
 
 const updateWeigth = async (req, res) => {
   const { _id } = req.user;
-  const { weigth } = req.body;
-  
+  const { weight } = req.body;
+
   const result = await User.findByIdAndUpdate(
     _id,
-    { weigth },
+    { weight },
     {
       new: true,
     }
@@ -121,7 +121,7 @@ const updateWeigth = async (req, res) => {
     throw HttpError(400, "Bad Request");
   }
 
-  res.status(200).json({weigth: result.weight});
+  res.status(200).json({weight: result.weight});
 };
 
 const updateSettings = async (req, res) => {
