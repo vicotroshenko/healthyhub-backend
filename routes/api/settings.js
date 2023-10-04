@@ -9,11 +9,11 @@ const jsonParser = express.json();
 
 
 
-router.patch("/", jsonParser, authenticate, validateBody(schemas.settingsSchema), ctrl.updateSettings);
+router.patch("/", validateBody(schemas.settingsSchema), jsonParser, authenticate, ctrl.updateSettings);
 
-router.patch("/weight", jsonParser, authenticate, validateBody(schemas.weightSchema), ctrl.updateWeigth);
+router.patch("/weight", validateBody(schemas.weightSchema), jsonParser, authenticate, ctrl.updateWeigth);
 
-router.patch("/goal", jsonParser, authenticate, validateBody(schemas.goalSchema), ctrl.updateGoal);
+router.patch("/goal", validateBody(schemas.goalSchema), jsonParser, authenticate, ctrl.updateGoal);
 
 router.patch("/avatars", authenticate,  uploadCloud.single("avatarURL"), ctrl.updateAvatar);
 
