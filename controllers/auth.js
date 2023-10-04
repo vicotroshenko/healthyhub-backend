@@ -121,7 +121,7 @@ const updateWeigth = async (req, res) => {
     throw HttpError(400, "Bad Request");
   }
 
-  res.status(200).json({weigth: result.weight});
+  res.status(200).json({weight: result.weight});
 };
 
 const updateSettings = async (req, res) => {
