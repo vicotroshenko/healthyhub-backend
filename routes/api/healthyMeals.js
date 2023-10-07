@@ -9,7 +9,7 @@ const jsonParser = express.json();
 
 
 
-router.get('/', authenticate, ctrl.listHealthyDay);
+router.get('/', authenticate, ctrl.getHealthyDay);
 
 router.get('/statistic', authenticate, ctrl.listStatistics);
 

@@ -6,13 +6,32 @@ const dt = new Date();
 const currentDate =
   dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate();
 
-const listHealthyDay = async (req, res) => {
+const getHealthyDay = async (req, res) => {
   const { _id: owner } = req.user;
   const result = await Healthy.find(
     { owner },
     "-createdAt -updatedAt"
   ).populate("owner");
-  res.status(200).send(result);
+
+  const findDay = result.find(({ date }) => {
+    const gottenDate =
+      date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
+    return gottenDate === currentDate;
+  });
+
+  if(!findDay){
+    throw HttpError(404, "Not foun the day");
+  }
+  res.status(200).send({
+    id: findDay._id,
+    date: findDay.date,
+    water: findDay.water,
+    weight: findDay.weight,
+    breakfast: findDay.breakfast,
+    lunch: findDay.lunch,
+    dinner: findDay.dinner,
+    snack: findDay.snack,
+  });
 };
 
 const addHealthyDay = async (req, res) => {
@@ -290,7 +309,7 @@ const listStatistics = async (req, res) => {
 };
 
 module.exports = {
-	listHealthyDay: ctrlWrapper(listHealthyDay),
+	getHealthyDay: ctrlWrapper(getHealthyDay),
   addHealthyDay: ctrlWrapper(addHealthyDay),
   listFoodbyId: ctrlWrapper(listFoodbyId),
   addDrunkWater: ctrlWrapper(addDrunkWater),
