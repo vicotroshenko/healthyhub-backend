@@ -267,7 +267,7 @@ const listStatistics = async (req, res) => {
     {
       $project: {
         date: "$date",
-        weigth: { $sum: "$weigth" },
+        weight: { $sum: "$weight" },
         water: { $sum: "$water" },
         owner: "$owner",
         breakfast: [
