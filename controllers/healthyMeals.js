@@ -233,26 +233,33 @@ const listStatistics = async (req, res) => {
 
   let startDate = new Date();
   let endDate = new Date();
+  const monthNum = Number(month);
+  const yearNum = Number(year);
 
-  if (month !== 0) {
-    startDate = new Date(Number(year), Number(month) - 1, 1, 3);
+  if (monthNum !== 0) {
+    startDate = new Date(Number(yearNum), Number(monthNum) - 1, 1, 3);
     endDate = new Date(
       new Date(startDate).setMonth(new Date(startDate).getMonth() + 1)
     );
   }
-  if (month > 12) {
+
+  if (monthNum > 12) {
     throw HttpError(404, "Not found. A year contains 12 months");
   }
-  if ((month === 0) & year) {
+
+  if (monthNum === 0 && yearNum) {
     const currentYear = new Date().getFullYear();
     startDate = new Date(
       new Date().setFullYear(
-        new Date().getFullYear() - (currentYear - Number(year))
+        new Date().getFullYear() - ((currentYear +1) - Number(yearNum))
       )
     );
+    console.log("startDate", startDate);
     endDate = new Date();
   }
-  if (!year && !month) {
+
+  if (!yearNum && !monthNum) {
+    console.log(4);
     startDate = new Date(1970);
     endDate = new Date();
   }
