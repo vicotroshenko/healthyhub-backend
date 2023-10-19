@@ -21,7 +21,7 @@
 	"produces": ["application/json"],
   "servers": [
     {
-      "url": "https://http://localhost:8080/api"
+      "url": "https://healthyhub-backend.onrender.com/api"
     }
   ],
   "tags": [
