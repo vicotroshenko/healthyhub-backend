@@ -13,25 +13,20 @@ const getHealthyDay = async (req, res) => {
     "-createdAt -updatedAt"
   ).populate("owner");
 
-  const findDay = result.find(({ date }) => {
-    const gottenDate =
-      date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
-    return gottenDate === currentDate;
-  });
-
-  if(!findDay){
-    throw HttpError(404, "Not foun the day");
+  if(!result) {
+    throw HttpError(404, "User not foud")
   }
-  res.status(200).send({
-    id: findDay._id,
-    date: findDay.date,
-    water: findDay.water,
-    weight: findDay.weight,
-    breakfast: findDay.breakfast,
-    lunch: findDay.lunch,
-    dinner: findDay.dinner,
-    snack: findDay.snack,
-  });
+
+  // const findDay = result.find(({ date }) => {
+  //   const gottenDate =
+  //     date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
+  //   return gottenDate === currentDate;
+  // });
+
+  // if(!findDay){
+  //   throw HttpError(404, "Not found the day");
+  // }
+  res.status(200).send(result);
 };
 
 const addHealthyDay = async (req, res) => {
