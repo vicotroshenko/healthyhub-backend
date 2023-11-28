@@ -17,15 +17,6 @@ const getHealthyDay = async (req, res) => {
     throw HttpError(404, "User not foud")
   }
 
-  // const findDay = result.find(({ date }) => {
-  //   const gottenDate =
-  //     date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
-  //   return gottenDate === currentDate;
-  // });
-
-  // if(!findDay){
-  //   throw HttpError(404, "Not found the day");
-  // }
   res.status(200).send(result);
 };
 
@@ -125,11 +116,12 @@ const addMealToDay = async (req, res) => {
   ).exec();
 
   if (!result) {
-    throw HttpError(400, "files did not add");
+    throw HttpError(400, "Files did not add");
   }
 
   res.status(200).json(result);
 };
+
 
 const updateMealToDay = async (req, res) => {
   const { _id: owner } = req.user;
@@ -159,6 +151,7 @@ const updateMealToDay = async (req, res) => {
 
   res.status(200).json(result);
 };
+
 
 const updateWeightToDay = async (req, res) => {
   const { _id: owner } = req.user;
@@ -191,6 +184,7 @@ const updateWeightToDay = async (req, res) => {
   res.status(200).json({id: result._id, weight: result.weight, date: result.date});
 };
 
+
 const removeMeal = async (req, res) => {
   const { _id: owner } = req.user;
   const { id, meal } = req.params;
@@ -221,6 +215,7 @@ const removeMeal = async (req, res) => {
     message: "successful deleted",
   });
 };
+
 
 const listStatistics = async (req, res) => {
   const { month, year } = req.query;
@@ -309,6 +304,7 @@ const listStatistics = async (req, res) => {
   ]);
   res.status(200).json(diaryByDays);
 };
+
 
 module.exports = {
 	getHealthyDay: ctrlWrapper(getHealthyDay),

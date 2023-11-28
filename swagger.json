@@ -333,7 +333,7 @@
         }
       }
     },
-    "user/food-intake/{meal}": {
+    "/user/food-intake/{meal}": {
       "post": {
         "tags": [
           "user"
@@ -381,7 +381,7 @@
         }
       }
     },
-    "user/food-intake/{meal}/{id}": {
+    "/user/food-intake/{meal}/{id}": {
       "put": {
         "tags": [
           "user"
@@ -916,43 +916,10 @@
       "type": "object",
       "required": ["weigth"],
       "properties": {
-        "water": {
-          "type": "number",
-          "description": "drunk water",
-          "example": 250
-        },
-        "weigth": {
+        "weight": {
           "type": "number",
           "description": "current weigth",
           "example": 88
-        },
-        "breakfast": {
-          "type": "array",
-          "items" : {
-            "$ref" : "#/definitions/meals"
-          },
-          "description": "User's breakfast"
-        },
-        "lunch": {
-          "type": "array",
-          "description": "User's lunch",
-          "items" : {
-            "$ref" : "#/definitions/meals"
-          }
-        },
-        "dinner": {
-          "type": "array",
-          "description": "User's dinner",
-          "items" : {
-            "$ref" : "#/definitions/meals"
-          }
-        },
-        "snack": {
-          "type": "array",
-          "description": "User's snack",
-          "items" : {
-            "$ref" : "#/definitions/meals"
-          }
         }
       }
      },
@@ -1566,22 +1533,10 @@
     }
     },
     "securitySchemes": {
-      "petstore_auth": {
-        "type": "oauth2",
-        "flows": {
-          "implicit": {
-            "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
-            "scopes": {
-              "write:pets": "modify pets in your account",
-              "read:pets": "read your pets"
-            }
-          }
-        }
-      },
-      "api_key": {
-        "type": "apiKey",
-        "name": "api_key",
-        "in": "header"
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

@@ -13,14 +13,19 @@ const register = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email }).exec();
 
-  if (!user) {
-    HttpError(409, "Email already in use");
+  if (user) {
+    throw HttpError(409, "Email already in use");
   }
   const hashPassword = await bcrypt.hash(password, 10);
 
 	const avatarURL = gravatar.url(email);
-
-  const data = await User.create({ ...req.body, password: hashPassword, avatarURL });
+  
+  const newUser = await User.create({ ...req.body, password: hashPassword, avatarURL });
+  const token = jwt.sign({id: newUser._id}, SECRET_KEY, { expiresIn: "23h" });
+  
+  const data = await User.findByIdAndUpdate(newUser._id, { token }, {
+    new: true,
+  });
 
   res.status(201).json({
     token: data.token,
@@ -38,17 +43,17 @@ const register = async (req, res) => {
   });
 };
 
+
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email }).exec();
- 
 
   if (!user) {
-    HttpError(401, "Email or password invalid");
+    throw HttpError(401, "Email or password invalid");
   }
 
   const passwordCompare = await bcrypt.compare(password, user.password);
-  console.log(passwordCompare);
+
 
   if (!passwordCompare) {
     throw HttpError(401, "Email or password invalid");
@@ -98,6 +103,7 @@ const getCurrent = async (req, res) => {
   });
 };
 
+
 const logout = async (req, res) => {
   const { _id } = req.user;
   await User.findByIdAndUpdate(_id, { token: "" });
@@ -106,6 +112,7 @@ const logout = async (req, res) => {
     message: "Logout success",
   });
 };
+
 
 const updateWeigth = async (req, res) => {
   const { _id } = req.user;
@@ -126,6 +133,7 @@ const updateWeigth = async (req, res) => {
   res.status(200).json({weight: result.weight});
 };
 
+
 const updateSettings = async (req, res) => {
   const { _id } = req.user;
   const data = req.body;
@@ -140,6 +148,7 @@ const updateSettings = async (req, res) => {
 
   res.status(200).json(result);
 };
+
 
 const updateGoal = async (req, res) => {
   const { _id } = req.user;
@@ -159,6 +168,7 @@ const updateGoal = async (req, res) => {
 
   res.status(200).json(result);
 };
+
 
 const updateAvatar = async (req, res) => {
   const { _id } = req.user;
